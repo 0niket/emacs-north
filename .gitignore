@@ -1,0 +1,29 @@
+# Emacs runtime and cache files
+.cache/
+.lsp-session-v1
+auto-save-list/
+backups/
+elpa/
+history
+places
+projectile-bookmarks.eld
+transient/
+tree-sitter/
+
+# Emacs backup files
+*~
+\#*\#
+.\#*
+
+# Emacs lock files
+.*.lock
+
+# ELPA packages (installed via package manager)
+elpa/
+
+# Session files
+session.*
+.session
+
+# Recent files
+recentf
