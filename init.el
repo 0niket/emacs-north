@@ -361,6 +361,14 @@
 ;; RUBY & RUBY ON RAILS
 ;; ============================================================================
 
+;; rbenv - Use rbenv Ruby instead of system Ruby
+(use-package rbenv
+  :config
+  (global-rbenv-mode)
+  ;; Ensure PATH includes rbenv shims
+  (setenv "PATH" (concat (getenv "HOME") "/.rbenv/shims:" (getenv "PATH")))
+  (setq exec-path (cons (concat (getenv "HOME") "/.rbenv/shims") exec-path)))
+
 (use-package ruby-ts-mode
   :ensure nil
   :mode "\\.rb\\'"
@@ -481,7 +489,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(vterm yasnippet-snippets yasnippet flycheck sqlformat rubocop rspec-mode emmet-mode web-mode prettier-js lsp-treemacs lsp-ui lsp-mode treesit-auto diff-hl magit projectile-rails projectile corfu consult marginalia orderless vertico rainbow-delimiters doom-modeline doom-themes all-the-icons which-key helpful)))
+   '(rbenv vterm yasnippet-snippets yasnippet flycheck sqlformat rubocop rspec-mode emmet-mode web-mode prettier-js lsp-treemacs lsp-ui lsp-mode treesit-auto diff-hl magit projectile-rails projectile corfu consult marginalia orderless vertico rainbow-delimiters doom-modeline doom-themes all-the-icons which-key helpful)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
