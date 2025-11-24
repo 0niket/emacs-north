@@ -374,7 +374,12 @@
 
 ;; RSpec mode
 (use-package rspec-mode
-  :hook ruby-ts-mode)
+  :hook ruby-ts-mode
+  :config
+  ;; Use bundler for rspec commands
+  (setq rspec-use-bundler-when-possible t)
+  ;; Use rake when available
+  (setq rspec-use-rake-when-possible nil))
 
 ;; Rubocop for linting
 (use-package rubocop
