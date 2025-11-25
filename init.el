@@ -148,6 +148,11 @@
 (use-package rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode))
 
+;; Show matching blocks/parentheses
+(show-paren-mode 1)
+(setq show-paren-style 'mixed)  ; Shows entire expression if not visible
+(setq show-paren-delay 0)       ; No delay
+
 ;; Highlight current line
 (global-hl-line-mode 1)
 
@@ -376,6 +381,15 @@
   :custom
   (ruby-indent-level 2))
 
+;; Dumb-jump - Fallback for go-to-definition when LSP doesn't work
+(use-package dumb-jump
+  :config
+  (add-hook 'xref-backend-functions #'dumb-jump-xref-activate)
+  (setq dumb-jump-prefer-searcher 'rg)  ; Use ripgrep for speed
+  :bind (("C-M-g" . dumb-jump-go)
+         ("C-M-p" . dumb-jump-back)
+         ("C-M-q" . dumb-jump-quick-look)))
+
 ;; Inf-ruby for REPL
 (use-package inf-ruby
   :hook (ruby-ts-mode . inf-ruby-minor-mode))
@@ -388,6 +402,20 @@
   (setq rspec-use-bundler-when-possible t)
   ;; Use rake when available
   (setq rspec-use-rake-when-possible nil))
+
+;; Ruby-end - Auto-insert 'end' and show which block you're closing
+(use-package ruby-end
+  :diminish ruby-end-mode
+  :config
+  (setq ruby-end-insert-newline nil)
+  :hook (ruby-ts-mode . ruby-end-mode))
+
+;; Highlight indentation to visualize blocks
+(use-package highlight-indent-guides
+  :hook (ruby-ts-mode . highlight-indent-guides-mode)
+  :custom
+  (highlight-indent-guides-method 'character)
+  (highlight-indent-guides-responsive 'top))
 
 ;; Rubocop for linting
 (use-package rubocop
