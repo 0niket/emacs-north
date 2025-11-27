@@ -487,6 +487,27 @@
   (setq vterm-max-scrollback 10000))
 
 ;; ============================================================================
+;; MARKDOWN
+;; ============================================================================
+
+;; Markdown mode
+(use-package markdown-mode
+  :mode (("README\\.md\\'" . gfm-mode)
+         ("\\.md\\'" . markdown-mode)
+         ("\\.markdown\\'" . markdown-mode))
+  :config
+  (setq markdown-command "multimarkdown")
+  (setq markdown-fontify-code-blocks-natively t))
+
+;; Grip mode - GitHub-flavored markdown preview
+(use-package grip-mode
+  :after markdown-mode
+  :bind (:map markdown-mode-command-map
+         ("g" . grip-mode))
+  :config
+  (setq grip-preview-use-webkit t))
+
+;; ============================================================================
 ;; CUSTOM KEYBINDINGS
 ;; ============================================================================
 

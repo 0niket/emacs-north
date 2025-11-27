@@ -1,10 +1,20 @@
-# Emacs Configuration for Full-Stack Development
+# Emacs Configuration with Claude Code Integration
 
-A comprehensive Emacs configuration optimized for full-stack development with JavaScript, TypeScript, HTML, CSS, Ruby, Rails, SQL, Postgres, Apex, and LWC.
+A comprehensive Emacs configuration optimized for **AI-assisted development using Claude Code CLI**. Supports JavaScript, TypeScript, HTML, CSS, Ruby, Rails, SQL, Postgres, Apex, and LWC development.
+
+## 🤖 Built for Claude Code
+
+This configuration treats **Claude Code as a first-class citizen** in your development workflow:
+- **vterm terminal emulator** for running Claude CLI directly in Emacs
+- **Side-by-side workflow** with optimized window management
+- **Emacs server mode** for seamless file editing from Claude
+- **Grip-mode** for GitHub-style Markdown preview (perfect for viewing Claude's documentation)
+- All the power of modern Emacs with AI assistance at your fingertips
 
 ## Table of Contents
 
 - [Prerequisites](#prerequisites)
+- [Claude Code Integration](#claude-code-integration)
 - [Installation](#installation)
 - [Packages Overview](#packages-overview)
 - [Configuration Features](#configuration-features)
@@ -65,7 +75,12 @@ brew install pgformatter
 
 # Prettier for JS/TS formatting
 npm install -g prettier
+
+# Grip for GitHub Markdown preview (Python required)
+pip install grip
 ```
+
+**Note:** grip-mode requires Python and the `grip` package for GitHub-style Markdown rendering.
 
 ## Installation
 
@@ -182,6 +197,17 @@ npm install -g prettier
   - Supports complex terminal applications (vim, htop, etc.)
   - Configured with 10,000 lines of scrollback
   - **Recommended workflow:** `M-x vterm` → run `claude` → split window with code
+
+### Markdown
+- **markdown-mode** - Major mode for editing Markdown files
+  - GitHub-Flavored Markdown (GFM) support for README files
+  - Native syntax highlighting for code blocks
+  - Configurable markdown command (uses multimarkdown)
+- **grip-mode** - GitHub-style Markdown preview
+  - Live preview with GitHub's actual rendering engine
+  - Use `C-c C-c g` in markdown files to toggle preview
+  - Opens preview in browser with auto-refresh
+  - Perfect for previewing README files exactly as they appear on GitHub
 
 ## Configuration Features
 
@@ -340,6 +366,21 @@ npm install -g prettier
 | `M-x vterm` | Open vterm terminal |
 | `M-x eshell` | Open eshell |
 | `M-x shell` | Open shell |
+
+### Markdown
+| Key | Action |
+|-----|--------|
+| `C-c C-c g` | Toggle grip-mode (GitHub preview) |
+| `C-c C-c p` | Preview markdown |
+| `C-c C-c e` | Export markdown |
+| `C-c C-s h` | Insert heading |
+| `C-c C-s b` | Insert bold |
+| `C-c C-s i` | Insert italic |
+| `C-c C-s c` | Insert code |
+| `C-c C-s C` | Insert code block |
+| `C-c C-s l` | Insert link |
+| `C-c C-s u` | Insert unordered list |
+| `C-c C-s o` | Insert ordered list |
 
 ### Help System
 | Key | Action |
