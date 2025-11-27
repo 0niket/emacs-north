@@ -94,10 +94,18 @@
 (savehist-mode 1)
 
 ;; Load shell environment (PATH, etc.) - Important for pyenv, rbenv, etc.
-(use-package exec-path-from-shell
-  :if (memq window-system '(mac ns x))
-  :config
-  (exec-path-from-shell-initialize))
+;; Manually add common paths for macOS
+(when (memq window-system '(mac ns x))
+  (let ((paths '("/usr/local/bin"
+                 "/opt/homebrew/bin"
+                 "~/.rbenv/shims"
+                 "~/.pyenv/shims"
+                 "~/.local/bin")))
+    (dolist (path paths)
+      (let ((expanded-path (expand-file-name path)))
+        (when (file-directory-p expanded-path)
+          (add-to-list 'exec-path expanded-path)
+          (setenv "PATH" (concat expanded-path ":" (getenv "PATH"))))))))
 
 ;; Start Emacs server for external editor integration
 (require 'server)
