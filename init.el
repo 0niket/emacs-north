@@ -1,7 +1,7 @@
-;;; init.el --- Emacs Configuration for Full-Stack Development
+;;; init.el --- Emacs Configuration with Claude Code Integration
 ;;; Commentary:
-;;; Comprehensive Emacs setup for JS, TS, HTML, CSS, Ruby, Rails, SQL, Postgres, Apex, LWC
-;;; with LSP support, git integration, project management, and Claude Code integration
+;;; Comprehensive Emacs setup optimized for AI-assisted development with Claude Code CLI
+;;; Supports JS, TS, HTML, CSS, Ruby, Rails, SQL, Postgres, Apex, LWC with LSP and git integration
 
 ;;; Code:
 
