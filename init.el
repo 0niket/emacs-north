@@ -93,6 +93,12 @@
 ;; Save minibuffer history
 (savehist-mode 1)
 
+;; Load shell environment (PATH, etc.) - Important for pyenv, rbenv, etc.
+(use-package exec-path-from-shell
+  :if (memq window-system '(mac ns x))
+  :config
+  (exec-path-from-shell-initialize))
+
 ;; Start Emacs server for external editor integration
 (require 'server)
 (unless (server-running-p)
