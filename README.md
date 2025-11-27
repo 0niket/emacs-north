@@ -18,10 +18,12 @@ Before using this configuration, ensure you have the following installed:
 
 - **Emacs 29+** (with tree-sitter support)
 - **Git**
-- **CMake** (for vterm)
+- **CMake** (**REQUIRED** for vterm terminal emulator)
   ```bash
   brew install cmake
   ```
+
+  **Important:** CMake is essential for compiling vterm, which provides a fully-featured terminal emulator in Emacs. This is especially important for Claude Code integration, as it allows you to run the Claude CLI directly within Emacs while editing files side-by-side.
 
 ### Language Servers & Tools
 
@@ -173,9 +175,13 @@ npm install -g prettier
 - **yasnippet-snippets** - Collection of snippet templates
 
 ### Terminal
-- **vterm** - Fully-featured terminal emulator
-  - Requires CMake to compile
-  - Fast, supports colors and complex terminal applications
+- **vterm** - Fully-featured terminal emulator (**ESSENTIAL for Claude Code**)
+  - **Requires CMake** - Must run `brew install cmake` before use
+  - Provides true terminal emulation with full color support
+  - Perfect for running Claude CLI alongside your code editor
+  - Supports complex terminal applications (vim, htop, etc.)
+  - Configured with 10,000 lines of scrollback
+  - **Recommended workflow:** `M-x vterm` → run `claude` → split window with code
 
 ## Configuration Features
 
@@ -353,6 +359,60 @@ npm install -g prettier
 | `C-j` | Expand emmet expression |
 | Example: `div>p*3` then `C-j` |
 
+## Claude Code Integration
+
+This Emacs configuration is optimized for use with Claude Code CLI. Here's how to integrate them:
+
+### Prerequisites for Claude Code
+1. **CMake must be installed** (for vterm):
+   ```bash
+   brew install cmake
+   ```
+
+2. **Restart Emacs** after installing CMake to compile vterm
+
+### Recommended Workflow
+
+1. **Open Emacs** with your project
+2. **Start vterm**: `M-x vterm` (or bind to a key)
+3. **Run Claude**: Type `claude` in the vterm terminal
+4. **Split windows** for side-by-side editing:
+   - `C-x 3` - Split vertically (Claude | Code)
+   - `C-x 2` - Split horizontally (Claude / Code)
+5. **Navigate between windows**: `C-x o` or `C-x <arrow>`
+
+### Emacs Server Integration
+
+This configuration enables Emacs server mode, allowing external tools to open files in your running Emacs instance:
+
+```bash
+# Set Emacs as your editor
+export EDITOR="emacsclient -t"
+
+# Or for GUI Emacs
+export EDITOR="emacsclient -c"
+```
+
+Add this to your shell configuration (`~/.zshrc` or `~/.bashrc`).
+
+### Window Management Tips
+
+When using Claude Code with Emacs:
+
+- **`C-x 1`** - Maximize current window (hide Claude temporarily)
+- **`C-x 0`** - Close current window
+- **`C-x 3`** - Split vertically (recommended for Claude + code)
+- **`C-x 2`** - Split horizontally
+- **`C-x o`** - Switch between windows
+- **`C-x <left/right/up/down>`** - Navigate to specific window
+
+### vterm Tips
+
+- **Copy mode**: `C-c C-t` to enter copy mode, navigate with normal Emacs keys
+- **Paste**: `C-c C-y` or standard `C-y`
+- **Clear**: `C-c C-l` to clear the terminal
+- **Exit vterm**: `exit` or `C-d`
+
 ## Customization
 
 ### Changing Theme
@@ -377,15 +437,31 @@ Add to the "CUSTOM KEYBINDINGS" section (around line 447):
 
 ## Troubleshooting
 
-### vterm not working
-Ensure CMake is installed:
-```bash
-brew install cmake
-```
-Then in Emacs:
-```
-M-x vterm-module-compile
-```
+### vterm not working (CRITICAL for Claude Code)
+
+**vterm is essential for running Claude Code CLI within Emacs.**
+
+If you see errors like "Vterm needs CMake to be compiled":
+
+1. **Install CMake**:
+   ```bash
+   brew install cmake
+   ```
+
+2. **Restart Emacs** (it will auto-compile vterm on next startup)
+
+3. **Or manually compile**:
+   ```
+   M-x vterm-module-compile
+   ```
+
+4. **If still having issues**, reinstall vterm:
+   ```
+   M-x package-delete RET vterm RET
+   M-x package-install RET vterm RET
+   ```
+
+5. **Verify installation**: `M-x vterm` should open a working terminal
 
 ### LSP not starting
 Check if language server is installed:
