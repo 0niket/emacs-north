@@ -93,6 +93,11 @@
 ;; Save minibuffer history
 (savehist-mode 1)
 
+;; Start Emacs server for external editor integration
+(require 'server)
+(unless (server-running-p)
+  (server-start))
+
 ;; Better help
 (use-package helpful
   :commands (helpful-callable helpful-variable helpful-command helpful-key)
