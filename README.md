@@ -209,6 +209,16 @@ pip install grip
   - Opens preview in browser with auto-refresh
   - Perfect for previewing README files exactly as they appear on GitHub
 
+### Dictionary & Reference
+- **define-word** - Look up word definitions from online dictionaries
+  - Quick access with `C-c d` on any word
+  - Fetches definitions from WordNet and other sources
+  - Shows results in a popup buffer
+- **Perplexity integration** - Search via Claude Code MCP
+  - Use `C-c p s` to search Perplexity through Claude Code
+  - Requires Claude Code running with Perplexity MCP configured
+  - Great for quick research and fact-checking while coding
+
 ## Configuration Features
 
 ### Basic Settings
@@ -381,6 +391,13 @@ pip install grip
 | `C-c C-s l` | Insert link |
 | `C-c C-s u` | Insert unordered list |
 | `C-c C-s o` | Insert ordered list |
+
+### Dictionary & Definitions
+| Key | Action |
+|-----|--------|
+| `C-c d` | Define word at point (online dictionary) |
+| `C-c D` | Define word (prompts for word) |
+| `C-c p s` | Perplexity search (via Claude Code MCP) |
 
 ### Help System
 | Key | Action |
