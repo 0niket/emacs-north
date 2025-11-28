@@ -214,10 +214,6 @@ pip install grip
   - Quick access with `C-c d` on any word
   - Fetches definitions from WordNet and other sources
   - Shows results in a popup buffer
-- **Perplexity integration** - Search via Claude Code MCP
-  - Use `C-c p s` to search Perplexity through Claude Code
-  - Requires Claude Code running with Perplexity MCP configured
-  - Great for quick research and fact-checking while coding
 
 ## Configuration Features
 
@@ -397,7 +393,6 @@ pip install grip
 |-----|--------|
 | `C-c d` | Define word at point (online dictionary) |
 | `C-c D` | Define word (prompts for word) |
-| `C-c p s` | Perplexity search (via Claude Code MCP) |
 
 ### Help System
 | Key | Action |

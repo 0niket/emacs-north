@@ -530,23 +530,6 @@
   :bind (("C-c d" . define-word-at-point)
          ("C-c D" . define-word)))
 
-;; Perplexity integration via Claude Code MCP
-;; Note: This requires Claude Code with Perplexity MCP to be running
-(defun perplexity-search (query)
-  "Search Perplexity for QUERY using Claude Code MCP.
-This opens a vterm and runs the query through Claude."
-  (interactive "sPerplexity search: ")
-  (let ((buf (generate-new-buffer "*Perplexity*")))
-    (with-current-buffer buf
-      (insert (format "Ask Claude Code in vterm:\n\n"))
-      (insert (format "Query: %s\n\n" query))
-      (insert "Note: Run this query in your Claude Code vterm session\n")
-      (insert "to use Perplexity MCP integration.")
-      (help-mode))
-    (switch-to-buffer buf)))
-
-(global-set-key (kbd "C-c p s") 'perplexity-search)
-
 ;; ============================================================================
 ;; CUSTOM KEYBINDINGS
 ;; ============================================================================
