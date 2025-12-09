@@ -78,9 +78,15 @@ npm install -g prettier
 
 # Grip for GitHub Markdown preview (Python required)
 pip install grip
+
+# Mermaid CLI for diagram compilation (optional)
+npm install -g @mermaid-js/mermaid-cli
 ```
 
-**Note:** grip-mode requires Python and the `grip` package for GitHub-style Markdown rendering.
+**Notes:**
+- grip-mode requires Python and the `grip` package for GitHub-style Markdown rendering
+- Mermaid diagrams render automatically in grip-mode preview
+- `mmdc` (mermaid-cli) is optional, only needed if you want to compile standalone `.mmd` files
 
 ## Installation
 
@@ -207,7 +213,12 @@ pip install grip
   - Live preview with GitHub's actual rendering engine
   - Use `C-c C-c g` in markdown files to toggle preview
   - Opens preview in browser with auto-refresh
+  - **Renders Mermaid diagrams automatically** - just write mermaid code blocks
   - Perfect for previewing README files exactly as they appear on GitHub
+- **mermaid-mode** - Mermaid diagram editing support
+  - Syntax highlighting for `.mmd` files
+  - Can compile diagrams to PNG/SVG with `mmdc` (install via `npm install -g @mermaid-js/mermaid-cli`)
+  - Works seamlessly within Markdown code blocks
 
 ### Dictionary & Reference
 - **define-word** - Look up word definitions from online dictionaries
