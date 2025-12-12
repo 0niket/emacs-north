@@ -304,10 +304,8 @@
 (use-package treesit-auto
   :demand t
   :custom
-  (treesit-auto-install t)  ; Auto-install grammars without prompting
+  (treesit-auto-install 'prompt)  ; Prompt before installing to avoid version issues
   :config
-  ;; Silence version mismatch warnings (grammars are forward compatible)
-  (setq treesit-font-lock-level 4)
   (treesit-auto-add-to-auto-mode-alist 'all)
   (global-treesit-auto-mode))
 
