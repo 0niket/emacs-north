@@ -303,10 +303,25 @@
 ;; Ensure tree-sitter is available
 (use-package treesit-auto
   :custom
-  (treesit-auto-install 'prompt)
+  (treesit-auto-install t)  ; Auto-install grammars without prompting
   :config
   (treesit-auto-add-to-auto-mode-alist 'all)
   (global-treesit-auto-mode))
+
+;; Helper function to install tree-sitter grammars
+(defun install-treesit-grammars ()
+  "Install commonly used tree-sitter grammars."
+  (interactive)
+  (dolist (lang '(javascript typescript tsx css html json yaml ruby python bash))
+    (unless (treesit-language-available-p lang)
+      (message "Installing tree-sitter grammar for %s..." lang)
+      (treesit-install-language-grammar lang)))
+  (message "Tree-sitter grammar installation complete!"))
+
+;; Auto-install grammars on first run
+(unless (file-directory-p (expand-file-name "tree-sitter" user-emacs-directory))
+  (when (fboundp 'treesit-install-language-grammar)
+    (run-with-idle-timer 1 nil #'install-treesit-grammars)))
 
 ;; ============================================================================
 ;; LSP MODE - Language Server Protocol
