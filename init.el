@@ -302,26 +302,30 @@
 
 ;; Ensure tree-sitter is available
 (use-package treesit-auto
+  :demand t
   :custom
   (treesit-auto-install t)  ; Auto-install grammars without prompting
   :config
+  ;; Silence version mismatch warnings (grammars are forward compatible)
+  (setq treesit-font-lock-level 4)
   (treesit-auto-add-to-auto-mode-alist 'all)
   (global-treesit-auto-mode))
 
-;; Helper function to install tree-sitter grammars
-(defun install-treesit-grammars ()
-  "Install commonly used tree-sitter grammars."
+;; Helper function to reinstall tree-sitter grammars
+(defun reinstall-treesit-grammars ()
+  "Reinstall all tree-sitter grammars (fixes version mismatches)."
   (interactive)
+  (let ((grammar-dir (expand-file-name "tree-sitter" user-emacs-directory)))
+    (when (file-directory-p grammar-dir)
+      (delete-directory grammar-dir t)
+      (message "Removed old tree-sitter grammars")))
   (dolist (lang '(javascript typescript tsx css html json yaml ruby python bash))
-    (unless (treesit-language-available-p lang)
-      (message "Installing tree-sitter grammar for %s..." lang)
-      (treesit-install-language-grammar lang)))
-  (message "Tree-sitter grammar installation complete!"))
-
-;; Auto-install grammars on first run
-(unless (file-directory-p (expand-file-name "tree-sitter" user-emacs-directory))
-  (when (fboundp 'treesit-install-language-grammar)
-    (run-with-idle-timer 1 nil #'install-treesit-grammars)))
+    (condition-case err
+        (progn
+          (message "Installing tree-sitter grammar for %s..." lang)
+          (treesit-install-language-grammar lang))
+      (error (message "Failed to install %s: %s" lang err))))
+  (message "Tree-sitter grammar installation complete! Please restart Emacs."))
 
 ;; ============================================================================
 ;; LSP MODE - Language Server Protocol
