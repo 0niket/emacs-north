@@ -300,30 +300,33 @@
 ;; TREE-SITTER SETUP
 ;; ============================================================================
 
-;; Ensure tree-sitter is available
-(use-package treesit-auto
-  :demand t
-  :custom
-  (treesit-auto-install 'prompt)  ; Prompt before installing to avoid version issues
-  :config
-  (treesit-auto-add-to-auto-mode-alist 'all)
-  (global-treesit-auto-mode))
+;; Tree-sitter is built into Emacs 29+
+;; Grammars need to be installed per language
+;; If prompted to install, answer 'y'
 
-;; Helper function to reinstall tree-sitter grammars
-(defun reinstall-treesit-grammars ()
-  "Reinstall all tree-sitter grammars (fixes version mismatches)."
+;; Helper function to install tree-sitter grammars manually
+(defun install-treesit-grammar (lang)
+  "Install tree-sitter grammar for LANG."
+  (interactive
+   (list (intern (completing-read "Language: "
+                                  '(javascript typescript tsx css html json yaml ruby python bash)))))
+  (treesit-install-language-grammar lang))
+
+;; Helper to check available grammars
+(defun check-treesit-grammars ()
+  "Show status of tree-sitter grammars."
   (interactive)
-  (let ((grammar-dir (expand-file-name "tree-sitter" user-emacs-directory)))
-    (when (file-directory-p grammar-dir)
-      (delete-directory grammar-dir t)
-      (message "Removed old tree-sitter grammars")))
-  (dolist (lang '(javascript typescript tsx css html json yaml ruby python bash))
-    (condition-case err
-        (progn
-          (message "Installing tree-sitter grammar for %s..." lang)
-          (treesit-install-language-grammar lang))
-      (error (message "Failed to install %s: %s" lang err))))
-  (message "Tree-sitter grammar installation complete! Please restart Emacs."))
+  (let ((langs '(javascript typescript tsx css html json yaml ruby python bash)))
+    (with-current-buffer (get-buffer-create "*Tree-sitter Grammars*")
+      (erase-buffer)
+      (insert "Tree-sitter Grammar Status:\n\n")
+      (dolist (lang langs)
+        (insert (format "%-15s: %s\n"
+                       lang
+                       (if (treesit-language-available-p lang)
+                           "✓ Installed"
+                         "✗ Missing"))))
+      (display-buffer (current-buffer)))))
 
 ;; ============================================================================
 ;; LSP MODE - Language Server Protocol
