@@ -177,6 +177,12 @@ npm install -g @mermaid-js/mermaid-cli
 - **web-mode** - Major mode for HTML/CSS
 - **emmet-mode** - Fast HTML/CSS expansion (e.g., `div>p*3` → expand)
 
+#### YAML
+- **yaml-mode** - YAML file editing
+  - Syntax highlighting for `.yml` and `.yaml` files
+  - Auto-indentation support
+  - Essential for config files, CI/CD, Docker Compose, Kubernetes
+
 #### SQL
 - **sql-mode** (built-in) - SQL editing
 - **sqlformat** - SQL formatting with pgformatter
