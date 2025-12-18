@@ -473,6 +473,17 @@
               (define-key yaml-mode-map "\C-m" 'newline-and-indent))))
 
 ;; ============================================================================
+;; CUCUMBER/GHERKIN (.feature files)
+;; ============================================================================
+
+(use-package feature-mode
+  :mode "\\.feature\\'"
+  :config
+  (setq feature-default-language "en")
+  (setq feature-align-steps-p t)
+  (setq feature-step-search-path "features/**/*steps.rb"))
+
+;; ============================================================================
 ;; SQL & POSTGRES
 ;; ============================================================================
 

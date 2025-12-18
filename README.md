@@ -183,6 +183,13 @@ npm install -g @mermaid-js/mermaid-cli
   - Auto-indentation support
   - Essential for config files, CI/CD, Docker Compose, Kubernetes
 
+#### Cucumber/Gherkin
+- **feature-mode** - Cucumber/Gherkin `.feature` file editing
+  - Syntax highlighting for Given/When/Then/And/But
+  - Auto-align steps for better readability
+  - Jump to step definitions in Ruby files
+  - Essential for BDD testing with Cucumber
+
 #### SQL
 - **sql-mode** (built-in) - SQL editing
 - **sqlformat** - SQL formatting with pgformatter
