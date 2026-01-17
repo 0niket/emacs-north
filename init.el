@@ -512,7 +512,8 @@
 
   :bind (:map org-present-mode-keymap
          ("C-c <left>" . org-present-prev)
-         ("C-c <right>" . org-present-next)))
+         ("C-c <right>" . org-present-next)
+         ("q" . org-present-quit)))
 
 ;; ============================================================================
 ;; SQL & POSTGRES
