@@ -233,6 +233,15 @@ npm install -g @mermaid-js/mermaid-cli
   - Can compile diagrams to PNG/SVG with `mmdc` (install via `npm install -g @mermaid-js/mermaid-cli`)
   - Works seamlessly within Markdown code blocks
 
+### Org Mode Presentations
+- **org-present** - Turn Org mode files into presentations
+  - Simple, distraction-free presentation mode
+  - Automatically enlarges text and hides UI elements
+  - Displays inline images
+  - Navigate with `C-c <left>` and `C-c <right>`
+  - Start with `M-x org-present` in any org file
+  - Perfect for quick presentations from your notes
+
 ### Dictionary & Reference
 - **define-word** - Look up word definitions from online dictionaries
   - Quick access with `C-c d` on any word
@@ -417,6 +426,14 @@ npm install -g @mermaid-js/mermaid-cli
 |-----|--------|
 | `C-c d` | Define word at point (online dictionary) |
 | `C-c D` | Define word (prompts for word) |
+
+### Org Mode Presentations
+| Key | Action |
+|-----|--------|
+| `M-x org-present` | Start presentation mode |
+| `C-c <left>` | Previous slide (in presentation) |
+| `C-c <right>` | Next slide (in presentation) |
+| `q` | Quit presentation mode |
 
 ### Help System
 | Key | Action |

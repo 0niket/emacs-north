@@ -484,6 +484,37 @@
   (setq feature-step-search-path "features/**/*steps.rb"))
 
 ;; ============================================================================
+;; ORG MODE PRESENTATIONS
+;; ============================================================================
+
+(use-package org-present
+  :commands org-present
+  :config
+  ;; Settings when presentation starts
+  (add-hook 'org-present-mode-hook
+            (lambda ()
+              (org-present-big)                    ; Bigger text
+              (org-display-inline-images)          ; Show images
+              (org-present-hide-cursor)            ; Hide cursor
+              (org-present-read-only)              ; Read-only mode
+              (setq-local mode-line-format nil)    ; Hide mode line
+              (setq-local header-line-format nil))) ; Hide header line
+
+  ;; Settings when presentation ends
+  (add-hook 'org-present-mode-quit-hook
+            (lambda ()
+              (org-present-small)                  ; Normal text size
+              (org-remove-inline-images)           ; Hide images
+              (org-present-show-cursor)            ; Show cursor
+              (org-present-read-write)             ; Allow editing
+              (setq-local mode-line-format (default-value 'mode-line-format))
+              (setq-local header-line-format (default-value 'header-line-format))))
+
+  :bind (:map org-present-mode-keymap
+         ("C-c <left>" . org-present-prev)
+         ("C-c <right>" . org-present-next)))
+
+;; ============================================================================
 ;; SQL & POSTGRES
 ;; ============================================================================
 
