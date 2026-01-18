@@ -594,7 +594,29 @@
   :bind (:map markdown-mode-command-map
          ("g" . grip-mode))
   :config
-  (setq grip-preview-use-webkit t))
+  (setq grip-preview-use-webkit t)
+  ;; Ensure grip binary is found
+  (setq grip-binary-path (or (executable-find "grip") "grip")))
+
+;; Helper function to check markdown preview setup
+(defun check-markdown-preview ()
+  "Check if markdown preview tools are properly configured."
+  (interactive)
+  (with-current-buffer (get-buffer-create "*Markdown Preview Check*")
+    (erase-buffer)
+    (insert "Markdown Preview Configuration Check\n")
+    (insert "=====================================\n\n")
+    (insert (format "grip installed: %s\n"
+                   (if (executable-find "grip") "✓ Yes" "✗ No")))
+    (insert (format "grip-mode package: %s\n"
+                   (if (featurep 'grip-mode) "✓ Loaded" "✗ Not loaded")))
+    (insert (format "markdown-mode package: %s\n"
+                   (if (featurep 'markdown-mode) "✓ Loaded" "✗ Not loaded")))
+    (insert "\nTo use grip-mode:\n")
+    (insert "1. Open a .md file\n")
+    (insert "2. Press C-c C-c g to toggle preview\n")
+    (insert "3. Browser will open with live preview\n")
+    (display-buffer (current-buffer))))
 
 ;; Mermaid mode for diagram syntax highlighting
 (use-package mermaid-mode
