@@ -233,7 +233,14 @@ npm install -g @mermaid-js/mermaid-cli
   - Can compile diagrams to PNG/SVG with `mmdc` (install via `npm install -g @mermaid-js/mermaid-cli`)
   - Works seamlessly within Markdown code blocks
 
-### Org Mode Presentations
+### Org Mode
+- **Custom TODO states** - Enhanced task workflow
+  - States: TODO → IN_PROGRESS → BLOCKED → DONE/CANCELLED
+  - Color-coded for easy visibility
+  - Automatic timestamp logging on completion
+  - Quick access: `C-c C-t` to cycle through states
+  - Shortcuts: `t` (TODO), `i` (IN_PROGRESS), `b` (BLOCKED), `d` (DONE), `c` (CANCELLED)
+
 - **org-present** - Turn Org mode files into presentations
   - Simple, distraction-free presentation mode
   - Automatically enlarges text and hides UI elements
@@ -427,9 +434,19 @@ npm install -g @mermaid-js/mermaid-cli
 | `C-c d` | Define word at point (online dictionary) |
 | `C-c D` | Define word (prompts for word) |
 
-### Org Mode Presentations
+### Org Mode
 | Key | Action |
 |-----|--------|
+| `C-c C-t` | Cycle TODO state |
+| `S-<right>` | Next TODO state |
+| `S-<left>` | Previous TODO state |
+| **In state selection:** | |
+| `t` | Set to TODO |
+| `i` | Set to IN_PROGRESS |
+| `b` | Set to BLOCKED |
+| `d` | Set to DONE |
+| `c` | Set to CANCELLED |
+| **Presentations:** | |
 | `M-x org-present` | Start presentation mode |
 | `C-c <left>` | Previous slide (in presentation) |
 | `C-c <right>` | Next slide (in presentation) |

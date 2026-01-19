@@ -484,6 +484,26 @@
   (setq feature-step-search-path "features/**/*steps.rb"))
 
 ;; ============================================================================
+;; ORG MODE CONFIGURATION
+;; ============================================================================
+
+;; Custom TODO states with workflow
+(setq org-todo-keywords
+      '((sequence "TODO(t)" "IN_PROGRESS(i)" "BLOCKED(b)" "|" "DONE(d)" "CANCELLED(c)")))
+
+;; Colors for TODO states
+(setq org-todo-keyword-faces
+      '(("TODO" . (:foreground "red" :weight bold))
+        ("IN_PROGRESS" . (:foreground "orange" :weight bold))
+        ("BLOCKED" . (:foreground "magenta" :weight bold))
+        ("DONE" . (:foreground "green" :weight bold))
+        ("CANCELLED" . (:foreground "gray" :weight bold))))
+
+;; Log state changes with timestamps
+(setq org-log-done 'time)
+(setq org-log-into-drawer t)
+
+;; ============================================================================
 ;; ORG MODE PRESENTATIONS
 ;; ============================================================================
 
