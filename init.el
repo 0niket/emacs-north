@@ -301,8 +301,20 @@
 ;; ============================================================================
 
 ;; Tree-sitter is built into Emacs 29+
-;; Grammars need to be installed per language
-;; If prompted to install, answer 'y'
+;; Grammars need to be compiled and installed per language
+
+;; Configure tree-sitter language grammar sources
+(setq treesit-language-source-alist
+      '((javascript "https://github.com/tree-sitter/tree-sitter-javascript" "master" "src")
+        (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src")
+        (tsx "https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src")
+        (ruby "https://github.com/tree-sitter/tree-sitter-ruby" "master" "src")
+        (python "https://github.com/tree-sitter/tree-sitter-python" "master")
+        (css "https://github.com/tree-sitter/tree-sitter-css" "master")
+        (html "https://github.com/tree-sitter/tree-sitter-html" "master")
+        (json "https://github.com/tree-sitter/tree-sitter-json" "master")
+        (yaml "https://github.com/tree-sitter/tree-sitter-yaml" "master")
+        (bash "https://github.com/tree-sitter/tree-sitter-bash" "master")))
 
 ;; Helper function to install tree-sitter grammars manually
 (defun install-treesit-grammar (lang)
@@ -311,6 +323,16 @@
    (list (intern (completing-read "Language: "
                                   '(javascript typescript tsx css html json yaml ruby python bash)))))
   (treesit-install-language-grammar lang))
+
+;; Helper to install all missing grammars
+(defun install-all-treesit-grammars ()
+  "Install all missing tree-sitter grammars."
+  (interactive)
+  (dolist (lang '(ruby javascript typescript tsx python css html json yaml bash))
+    (unless (treesit-language-available-p lang)
+      (message "Installing tree-sitter grammar for %s..." lang)
+      (treesit-install-language-grammar lang)))
+  (message "Tree-sitter grammar installation complete!"))
 
 ;; Helper to check available grammars
 (defun check-treesit-grammars ()
@@ -326,6 +348,8 @@
                        (if (treesit-language-available-p lang)
                            "✓ Installed"
                          "✗ Missing"))))
+      (insert "\nTo install missing grammars: M-x install-all-treesit-grammars\n")
+      (insert "Or install specific: M-x install-treesit-grammar\n")
       (display-buffer (current-buffer)))))
 
 ;; ============================================================================
