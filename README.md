@@ -1,24 +1,28 @@
-# Emacs Configuration with Claude Code Integration
+# Emacs Configuration for Modern Development
 
-A comprehensive Emacs configuration optimized for **AI-assisted development using Claude Code CLI**. Supports JavaScript, TypeScript, HTML, CSS, Ruby, Rails, SQL, Postgres, Apex, and LWC development.
+A comprehensive Emacs configuration for modern software development. Supports JavaScript, TypeScript, HTML, CSS, Ruby, Rails, SQL, Postgres, YAML, Markdown, Org mode, and more.
 
-## 🤖 Built for Claude Code
+## Features
 
-This configuration treats **Claude Code as a first-class citizen** in your development workflow:
-- **vterm terminal emulator** for running Claude CLI directly in Emacs
-- **Side-by-side workflow** with optimized window management
-- **Emacs server mode** for seamless file editing from Claude
-- **Grip-mode** for GitHub-style Markdown preview (perfect for viewing Claude's documentation)
-- All the power of modern Emacs with AI assistance at your fingertips
+- **Tree-sitter** - Fast, accurate syntax highlighting with built-in Emacs 29+ support
+- **LSP Mode** - IDE-like features (completion, diagnostics, refactoring)
+- **Project Management** - Projectile for efficient project navigation
+- **Git Integration** - Magit for powerful version control
+- **Terminal** - vterm for full-featured terminal emulation
+- **Markdown** - GitHub-style preview with grip-mode and Mermaid diagram support
+- **Org Mode** - Enhanced TODO states and presentation mode
+- **Ruby/Rails** - Full Ruby development environment with RSpec integration
+- **Modern UI** - Doom themes, vertico completion, and clean interface
 
 ## Table of Contents
 
 - [Prerequisites](#prerequisites)
-- [Claude Code Integration](#claude-code-integration)
 - [Installation](#installation)
+- [Tree-sitter Setup](#tree-sitter-setup)
 - [Packages Overview](#packages-overview)
 - [Configuration Features](#configuration-features)
 - [Keyboard Shortcuts](#keyboard-shortcuts)
+- [Troubleshooting](#troubleshooting)
 
 ## Prerequisites
 
@@ -28,12 +32,14 @@ Before using this configuration, ensure you have the following installed:
 
 - **Emacs 29+** (with tree-sitter support)
 - **Git**
-- **CMake** (**REQUIRED** for vterm terminal emulator)
+- **C Compiler** (Xcode Command Line Tools on macOS)
+  ```bash
+  xcode-select --install
+  ```
+- **CMake** (for vterm terminal emulator)
   ```bash
   brew install cmake
   ```
-
-  **Important:** CMake is essential for compiling vterm, which provides a fully-featured terminal emulator in Emacs. This is especially important for Claude Code integration, as it allows you to run the Claude CLI directly within Emacs while editing files side-by-side.
 
 ### Language Servers & Tools
 
@@ -90,20 +96,69 @@ npm install -g @mermaid-js/mermaid-cli
 
 ## Installation
 
-1. Clone or copy this configuration to `~/.emacs.d/`:
+1. **Clone this configuration:**
    ```bash
-   cd ~/.emacs.d
+   git clone git@github.com:0niket/emacs-north.git ~/.emacs.d
    ```
 
-2. Start Emacs - it will automatically:
+2. **Start Emacs** - it will automatically:
    - Install `use-package` if not present
    - Download and install all configured packages from MELPA
-   - Set up tree-sitter grammars
 
-3. On first run, you may need to:
-   - Install tree-sitter grammars when prompted
-   - Wait for packages to download and compile
-   - Restart Emacs after initial setup
+3. **Install tree-sitter grammars** (see next section)
+
+4. **Restart Emacs** after initial setup
+
+## Tree-sitter Setup
+
+Emacs 29+ has built-in tree-sitter support, but language grammars must be installed separately.
+
+### Quick Install (All Languages)
+
+```
+M-x install-all-treesit-grammars
+```
+
+This installs grammars for: Ruby, JavaScript, TypeScript, TSX, Python, CSS, HTML, JSON, YAML, Bash
+
+### Install Specific Language
+
+```
+M-x install-treesit-grammar RET <language> RET
+```
+
+Example: `M-x install-treesit-grammar RET ruby RET`
+
+### Check Installation Status
+
+```
+M-x check-treesit-grammars
+```
+
+Shows which grammars are installed and which are missing.
+
+### Requirements
+
+- Git (for cloning grammar sources)
+- C compiler (Xcode Command Line Tools on macOS)
+- Internet connection
+
+### How It Works
+
+1. Emacs clones the grammar source from GitHub
+2. Compiles `parser.c` and `scanner.c` using your C compiler
+3. Installs `libtree-sitter-<lang>.dylib` to `~/.emacs.d/tree-sitter/`
+
+### Common Issues
+
+**"Cannot activate tree-sitter" warnings:**
+- Run `M-x install-treesit-grammar RET <language> RET` for the missing language
+- Check you have git and C compiler installed
+- Verify installation with `M-x check-treesit-grammars`
+
+**Version mismatch warnings:**
+- Usually harmless, grammars are forward-compatible
+- To fix: Reinstall the grammar with `M-x install-treesit-grammar`
 
 ## Packages Overview
 
@@ -470,59 +525,36 @@ npm install -g @mermaid-js/mermaid-cli
 | `C-j` | Expand emmet expression |
 | Example: `div>p*3` then `C-j` |
 
-## Claude Code Integration
+## Terminal Integration
 
-This Emacs configuration is optimized for use with Claude Code CLI. Here's how to integrate them:
+This configuration includes vterm for full terminal emulation within Emacs.
 
-### Prerequisites for Claude Code
-1. **CMake must be installed** (for vterm):
-   ```bash
-   brew install cmake
-   ```
+### Using vterm
 
-2. **Restart Emacs** after installing CMake to compile vterm
+Start terminal: `M-x vterm`
 
-### Recommended Workflow
+Split windows for multi-panel workflow:
+- `C-x 3` - Split vertically
+- `C-x 2` - Split horizontally
+- `C-x o` - Switch between windows
+- `C-x <arrow>` - Navigate to specific window
 
-1. **Open Emacs** with your project
-2. **Start vterm**: `M-x vterm` (or bind to a key)
-3. **Run Claude**: Type `claude` in the vterm terminal
-4. **Split windows** for side-by-side editing:
-   - `C-x 3` - Split vertically (Claude | Code)
-   - `C-x 2` - Split horizontally (Claude / Code)
-5. **Navigate between windows**: `C-x o` or `C-x <arrow>`
+### vterm Keybindings
 
-### Emacs Server Integration
+- `C-c C-t` - Copy mode (navigate with normal Emacs keys)
+- `C-c C-y` - Paste
+- `C-c C-l` - Clear terminal
+- `exit` or `C-d` - Exit vterm
 
-This configuration enables Emacs server mode, allowing external tools to open files in your running Emacs instance:
+### Emacs Server Mode
+
+Server mode is enabled, allowing external tools to open files in running Emacs:
 
 ```bash
-# Set Emacs as your editor
-export EDITOR="emacsclient -t"
-
-# Or for GUI Emacs
-export EDITOR="emacsclient -c"
+# Add to ~/.zshrc or ~/.bashrc
+export EDITOR="emacsclient -t"  # Terminal
+export EDITOR="emacsclient -c"  # GUI
 ```
-
-Add this to your shell configuration (`~/.zshrc` or `~/.bashrc`).
-
-### Window Management Tips
-
-When using Claude Code with Emacs:
-
-- **`C-x 1`** - Maximize current window (hide Claude temporarily)
-- **`C-x 0`** - Close current window
-- **`C-x 3`** - Split vertically (recommended for Claude + code)
-- **`C-x 2`** - Split horizontally
-- **`C-x o`** - Switch between windows
-- **`C-x <left/right/up/down>`** - Navigate to specific window
-
-### vterm Tips
-
-- **Copy mode**: `C-c C-t` to enter copy mode, navigate with normal Emacs keys
-- **Paste**: `C-c C-y` or standard `C-y`
-- **Clear**: `C-c C-l` to clear the terminal
-- **Exit vterm**: `exit` or `C-d`
 
 ## Customization
 
